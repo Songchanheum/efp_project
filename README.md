@@ -3,6 +3,6 @@
 ## King kinam will Back!
 
 ```
-King Ginam is back for us  
+King inam is back for us  
 We praise him
 ```
