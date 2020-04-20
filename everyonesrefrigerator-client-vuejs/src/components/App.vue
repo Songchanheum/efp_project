@@ -1,87 +1,33 @@
 <template>
-  <v-app class="overflow-hidden">
-    <v-system-bar color="primary" lights-out></v-system-bar>
-    <v-app-bar
-      app
-      dark
-      shrink-on-scroll
-    >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer; mini = false" v-show="!drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>{{siteTitle}} {{$t('message')}}</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-      <v-menu bottom left>
-        <template v-slot:activator="{ on }">
-          <v-btn icon v-on="on">
-            <v-icon>mdi-dots-vertical</v-icon>
-          </v-btn>
-        </template>
-          <v-list>
-            <v-list-item  @click="changeLocale">
-              <v-list-item-title>{{$i18n.locale === 'en' ? '한글' : 'English'}}</v-list-item-title>
-            </v-list-item>
-            <template v-if="!$store.state.token">
-              <v-list-item  @click="$router.push('/sign')">
-                <v-list-item-title>로그인</v-list-item-title>
-              </v-list-item>
-              <v-list-item  @click="$router.push('/register')">
-                <v-list-item-title>회원가입</v-list-item-title>
-              </v-list-item>
-            </template>
-            <template v-else>
-              <v-list-item  @click="$router.push('/user')">
-                <v-list-item-title>사용자 정보</v-list-item-title>
-              </v-list-item>
-              <v-list-item  @click="signOut">
-                <v-list-item-title>로그아웃</v-list-item-title>
-              </v-list-item>
-            </template>
-          </v-list>
-        </v-menu>
-    </v-app-bar>
+  <v-app :dark="siteDark">
     <v-navigation-drawer
+      persistent
       v-model="drawer"
       :mini-variant.sync="mini"
       enable-resize-watcher
       fixed
       app
-      dark
     >
-    <v-list class="pa-0">
-      <v-list-item class="px-2">
-        <v-list-item-avatar>
-          <img :src="$store.state.user.img">
-        </v-list-item-avatar>
-        <v-list-item-title>
-        </v-list-item-title>
-        <v-list-item-action :right="true">
-          <v-btn icon @click.native.stop="mini = !mini">
-            <v-icon>fas fa-angle-left</v-icon>
-          </v-btn>
-        </v-list-item-action>
-      </v-list-item>
-      <v-list-item link v-if="!mini">
-        <v-list-item-content>
-          <v-list-item-title class="title">John Leider</v-list-item-title>
-          <v-list-item-subtitle>john@vuetifyjs.com</v-list-item-subtitle>
-        </v-list-item-content>
+      <v-toolbar flat class="transparent">
+        <v-list class="pa-0">
+          <v-list-tile avatar>
+            <v-list-tile-avatar>
+              <img :src="$store.state.user.img">
+            </v-list-tile-avatar>
+            <v-list-tile-content>
+              <!-- <v-list-tile-title>{{ `${$user.name} 님 (${$user.job})` }}</v-list-tile-title> -->
+              <v-list-tile-title>{{$store.state.user.name}}</v-list-tile-title>
 
-        <v-list-item-action>
-          <v-icon>mdi-menu-down</v-icon>
-        </v-list-item-action>
-      </v-list-item>
-    </v-list>
-    <v-divider></v-divider>
-      <v-list :shaped="shaped"
-        dense
-        link
-      >
+            </v-list-tile-content>
+            <v-list-tile-action>
+              <v-btn icon @click.native.stop="mini = !mini">
+                <v-icon>chevron_left</v-icon>
+              </v-btn>
+            </v-list-tile-action>
+          </v-list-tile>
+        </v-list>
+      </v-toolbar>
+      <v-list>
         <v-list-group
           v-for="(item, i) in items"
           v-model="item.act"
@@ -89,25 +35,59 @@
           :key="i"
           no-action
         >
-          <v-list-item slot="activator">
-            <!-- <v-list-item-title>{{item.title}}</v-list-item-title> -->
-            <v-list-item-content>
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item
+          <v-list-tile slot="activator">
+            <!-- <v-list-tile-title>{{item.title}}</v-list-tile-title> -->
+            <v-list-tile-content>
+              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile
             v-for="subItem in item.subItems"
             :key="subItem.title"
             :to="subItem.to"
           >
-            <v-list-item-content>
-              <v-list-item-title>{{ subItem.title }}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
+            <v-list-tile-content>
+              <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
         </v-list-group>
       </v-list>
     </v-navigation-drawer>
-
+    <v-toolbar
+      app
+    >
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-title>{{siteTitle}} {{$t('message')}}</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-items>
+        <v-menu bottom left>
+          <v-btn icon slot="activator">
+            <v-icon>more_vert</v-icon>
+          </v-btn>
+          <v-list>
+            <v-list-tile  @click="changeLocale">
+              <v-list-tile-title>{{$i18n.locale === 'en' ? '한글' : 'English'}}</v-list-tile-title>
+            </v-list-tile>
+            <template v-if="!$store.state.token">
+              <v-list-tile  @click="$router.push('/sign')">
+                <v-list-tile-title>로그인</v-list-tile-title>
+              </v-list-tile>
+              <v-list-tile  @click="$router.push('/register')">
+                <v-list-tile-title>회원가입</v-list-tile-title>
+              </v-list-tile>
+            </template>
+            <template v-else>
+              <v-list-tile  @click="$router.push('/user')">
+                <v-list-tile-title>사용자 정보</v-list-tile-title>
+              </v-list-tile>
+              <v-list-tile  @click="signOut">
+                <v-list-tile-title>로그아웃</v-list-tile-title>
+              </v-list-tile>
+            </template>
+          </v-list>
+        </v-menu>
+      </v-toolbar-items>
+    </v-toolbar>
     <v-content>
       <router-view/>
     </v-content>
@@ -131,6 +111,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'App',
   data () {
@@ -142,12 +123,12 @@ export default {
       siteDark: false,
       items: [
         {
-          icon: 'fas fa-columns',
-          title: 'Dashboard', // '현황',
+          icon: 'donut_large',
+          title: this.$t('dashboard'), // '현황',
           act: true,
           subItems: [
             {
-              title: 'Today', // '오늘',
+              title: this.$t('today'), // '오늘',
               to: {
                 path: '/'
               }
@@ -155,21 +136,28 @@ export default {
           ]
         },
         {
-          icon: 'fas fa-comment-alt',
-          title: 'Chat',
+          icon: 'chat',
+          title: '끄적끄적',
           subItems: [
-            {
-              icon: 'home',
-              title: '아무나',
-              to: {
-                path: '/about'
-              }
-            }
+            // {
+            //   icon: 'home',
+            //   title: '아무나',
+            //   to: {
+            //     path: '/board/아무나'
+            //   }
+            // },
+            // {
+            //   icon: 'clear',
+            //   title: '지호',
+            //   to: {
+            //     path: '/board/지호'
+            //   }
+            // }
           ]
         },
         {
-          icon: 'fas fa-layer-group',
-          title: 'Level Test',
+          icon: 'pan_tool',
+          title: '레벨테스트',
           subItems: [
             {
               title: '손님용 페이지',
@@ -198,8 +186,8 @@ export default {
           ]
         },
         {
-          icon: 'fas fa-tools',
-          title: 'Setting',
+          icon: 'settings',
+          title: '관리메뉴',
           subItems: [
             {
               title: '사용자관리',
@@ -227,6 +215,7 @@ export default {
             }
           ]
         }
+
         // ,
         // {
         //   icon: 'home',
