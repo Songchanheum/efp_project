@@ -1,11 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import CreatUser from '../views/auth/CreateUser.vue'
 
 Vue.use(VueRouter)
 
 const About = () => {
   return import('../views/About.vue')
+}
+const Singin = () => {
+  return import('../views/auth/SignIn.vue')
 }
   const routes = [
   {
@@ -20,6 +24,16 @@ const About = () => {
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => About()
+  },
+  {
+    path: '/sign',
+    name: 'SingIn',
+    component: () => Singin()
+  },
+  {
+    path: '/create',
+    name: 'CreateUser',
+    component: CreatUser
   }
 ]
 

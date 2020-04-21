@@ -9,6 +9,7 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer; mini = false" v-show="!drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>{{siteTitle}} {{$t('message')}}</v-toolbar-title>
       <v-spacer></v-spacer>
+
       <v-btn icon>
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
@@ -30,7 +31,7 @@
               <v-list-item  @click="$router.push('/sign')">
                 <v-list-item-title>로그인</v-list-item-title>
               </v-list-item>
-              <v-list-item  @click="$router.push('/register')">
+              <v-list-item  @click="$router.push('/create')">
                 <v-list-item-title>회원가입</v-list-item-title>
               </v-list-item>
             </template>
@@ -53,7 +54,21 @@
       app
       dark
     >
-    <v-list class="pa-0">
+    <v-list class="mt-3" align="center" height="120" v-if="!$store.state.token">
+      <h1> 로그인 하세요 </h1>
+      <v-btn hide-details
+        class="mt-3 mx-3"
+        @click="$router.push('/sign')"
+      > LOGIN
+      </v-btn>
+      <v-btn hide-details
+      color="primary"
+        class="mt-3 mx-3"
+        @click="$router.push('/create')"
+      > SIGNUP
+      </v-btn>
+    </v-list>
+    <v-list class="pa-0" v-else>
       <v-list-item class="px-2">
         <v-list-item-avatar>
           <img :src="$store.state.user.img">
@@ -66,19 +81,15 @@
           </v-btn>
         </v-list-item-action>
       </v-list-item>
-      <v-list-item link v-if="!mini">
+      <v-list-item link v-if="!mini" @click="$router.push('/user')">
         <v-list-item-content>
-          <v-list-item-title class="title">John Leider</v-list-item-title>
-          <v-list-item-subtitle>john@vuetifyjs.com</v-list-item-subtitle>
+          <v-list-item-title class="title">Song Chanheum</v-list-item-title>
+          <v-list-item-subtitle>chsong@thecnp.co.kr</v-list-item-subtitle>
         </v-list-item-content>
-
-        <v-list-item-action>
-          <v-icon>mdi-menu-down</v-icon>
-        </v-list-item-action>
       </v-list-item>
     </v-list>
     <v-divider></v-divider>
-      <v-list :shaped="shaped"
+      <v-list :shaped="true"
         dense
         link
       >
@@ -257,31 +268,33 @@ export default {
       this.$router.push('/')
     },
     getSite () {
-      this.$axios.get('/site')
-        .then(r => {
-          this.siteTitle = r.data.d.title
-          this.siteCopyright = r.data.d.copyright
-          this.siteDark = r.data.d.dark
-        })
-        .catch(e => {
-          if (!e.response) this.$store.commit('pop', { msg: e.message, color: 'warning' })
-        })
+      this.siteTitle = "반응형 웹 페이지 제작 테스트"
+      this.siteCopyright = " test copyright footer"
+      // this.$axios.get('/site')
+      //   .then(r => {
+      //     this.siteTitle = r.data.d.title
+      //     this.siteCopyright = r.data.d.copyright
+      //     this.siteDark = r.data.d.dark
+      //   })
+      //   .catch(e => {
+      //     if (!e.response) this.$store.commit('pop', { msg: e.message, color: 'warning' })
+      //   })
     },
     getBoards () {
-      this.$axios.get('/board/list')
-        .then(({ data }) => {
-          data.ds.forEach(v => {
-            this.items[1].subItems.push({
-              title: v.title,
-              to: {
-                path: `/board/${v.name}`
-              }
-            })
-          })
-        })
-        .catch(e => {
-          if (!e.response) this.$store.commit('pop', { msg: e.message, color: 'warning' })
-        })
+      // this.$axios.get('/board/list')
+      //   .then(({ data }) => {
+      //     data.ds.forEach(v => {
+      //       this.items[1].subItems.push({
+      //         title: v.title,
+      //         to: {
+      //           path: `/board/${v.name}`
+      //         }
+      //       })
+      //     })
+      //   })
+      //   .catch(e => {
+      //     if (!e.response) this.$store.commit('pop', { msg: e.message, color: 'warning' })
+      //   })
     },
     changeLocale () {
       if (this.$i18n.locale === 'en') this.$i18n.locale = 'ko'
