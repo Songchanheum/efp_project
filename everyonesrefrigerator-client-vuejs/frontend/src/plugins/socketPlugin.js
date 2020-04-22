@@ -17,7 +17,7 @@ const SocketPlugin = {
     vue.prototype.$sendMessage = ($payload) => {
       socket.emit('chat', {
         msg: $payload.msg,
-        name: $payload.name, 
+        name: $payload.name,
       });
     };
 
