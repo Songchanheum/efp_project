@@ -2,8 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import CreatUser from '../views/auth/CreateUser.vue'
-import ChatLogin from '../views/chat/ChatLogin.vue'
-import ChatRoom from '../views/chat/ChatRoom.vue'
+// import ChatLogin from '../views/chat/ChatLogin.vue'
+// import ChatRoom from '../views/chat/ChatRoom.vue'
 
 Vue.use(VueRouter)
 
@@ -37,23 +37,23 @@ const Singin = () => {
     name: 'CreateUser',
     component: CreatUser
   },
-  {
-    path: '/chat',
-    name: 'Chat',
-    component: ChatLogin,
-    redirect: '/chat/login',
-    children: [
-      {
-        path: 'login',
-        component: ChatLogin,
-      },
-    ]
-  },
-  {
-    path: '/char-room/:username',
-    name: 'ChatRoom',
-    component: ChatRoom,
-  }
+  // {
+  //   path: '/chat',
+  //   name: 'Chat',
+  //   component: ChatLogin,
+  //   redirect: '/chat/login',
+  //   children: [
+  //     {
+  //       path: 'login',
+  //       component: ChatLogin,
+  //     },
+  //   ]
+  // },
+  // {
+  //   path: '/char-room/:username',
+  //   name: 'ChatRoom',
+  //   component: ChatRoom,
+  // }
 
 ]
 

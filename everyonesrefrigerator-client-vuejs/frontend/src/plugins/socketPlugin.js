@@ -7,14 +7,14 @@ const connectionOptions =  {
             "timeout" : 10000, //before connect_error and connect_timeout are emitted.
             "transports" : ["websocket"]
         };
-const socket = io('http://localhost:3000/', connectionOptions);
+const socket = io('http://rnd.copynpaste.co.kr:33230/', connectionOptions);
 
 const SocketPlugin = {
   install(vue) {
     vue.mixin({
     });
 
-    vue.prototype.$sendMessage = ($payload) => {
+    vue.prototype.$sendMessage = ($payload) => {  
       socket.emit('chat', {
         msg: $payload.msg,
         name: $payload.name,
