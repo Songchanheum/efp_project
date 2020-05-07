@@ -56,14 +56,6 @@ export default {
       id:"",
       password: "",
     }
-  },
-  computed: {
-    progress () {
-      return Math.min(100, this.password.length * 10)
-    },
-    color () {
-      return ['error', 'warning', 'success'][Math.floor(this.progress / 40)]
-    },
-  },
+  }
 }
 </script>
