@@ -35,7 +35,9 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer />
-        <v-btn color="black" dark>Login</v-btn>
+        <v-btn color="black" dark
+          @click="redirect()"
+        >Login</v-btn>
         <v-btn color="primary"
           @click="$router.push('/create')"
         >Create</v-btn>
@@ -55,6 +57,23 @@ export default {
       height: 150,
       id:"",
       password: "",
+    }
+  },
+  create() {
+    this.setReturnPath();
+  },
+  methods: {
+    redirect () {
+      const returnPath = decodeURIComponent(localStorage.getItem('returnPath'))
+      if (returnPath) {
+        this.$router.push({
+          path: returnPath
+        })
+      } else {
+        this.$router.push({
+          path: '/'
+        })
+      }
     }
   }
 }

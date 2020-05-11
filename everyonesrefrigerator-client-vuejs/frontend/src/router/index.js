@@ -2,8 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import CreatUser from '../views/auth/CreateUser.vue'
-// import ChatLogin from '../views/chat/ChatLogin.vue'
-// import ChatRoom from '../views/chat/ChatRoom.vue'
+import ChatLogin from '../views/chat/ChatLogin.vue'
+import ChatRoom from '../views/chat/ChatRoom.vue'
+import store from '../store/index'
 
 Vue.use(VueRouter)
 
@@ -12,7 +13,7 @@ const requireAuth = (path) => async (to, from, next) => {
   if (require) {
     return next()
   }
-  next('/sign?returnPath=scs/' + path)
+  next('/sign?returnPath=/' + path)
 }
 
 const About = () => {
