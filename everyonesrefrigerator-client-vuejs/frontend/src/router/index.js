@@ -7,6 +7,14 @@ import CreatUser from '../views/auth/CreateUser.vue'
 
 Vue.use(VueRouter)
 
+const requireAuth = (path) => async (to, from, next) => {
+  const require = await store.getters.isAuthenticated
+  if (require) {
+    return next()
+  }
+  next('/sign?returnPath=scs/' + path)
+}
+
 const About = () => {
   return import('../views/About.vue')
 }
@@ -37,23 +45,25 @@ const Singin = () => {
     name: 'CreateUser',
     component: CreatUser
   },
-  // {
-  //   path: '/chat',
-  //   name: 'Chat',
-  //   component: ChatLogin,
-  //   redirect: '/chat/login',
-  //   children: [
-  //     {
-  //       path: 'login',
-  //       component: ChatLogin,
-  //     },
-  //   ]
-  // },
-  // {
-  //   path: '/char-room/:username',
-  //   name: 'ChatRoom',
-  //   component: ChatRoom,
-  // }
+  {
+    path: '/chat',
+    name: 'Chat',
+    component: ChatLogin,
+    redirect: '/chat/login',
+    children: [
+      {
+        path: 'login',
+        component: ChatLogin,
+        beforeEnter: requireAuth('chat/login')
+      },
+    ]
+  },
+  {
+    path: '/char-room/:username',
+    name: 'ChatRoom',
+    component: ChatRoom,
+    beforeEnter: requireAuth('chat/login')
+  }
 
 ]
 
