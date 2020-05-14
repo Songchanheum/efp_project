@@ -37,10 +37,10 @@
         <v-spacer />
         <v-btn color="black" dark
           @click="redirect()"
-        >Login</v-btn>
-        <v-btn color="primary"
+        >LOGIN</v-btn>
+        <v-btn dark color="purple darken-2"
           @click="$router.push('/create')"
-        >Create</v-btn>
+        >SINGUP</v-btn>
       </v-card-actions>
     </v-card>
   </div>
@@ -59,12 +59,13 @@ export default {
       password: "",
     }
   },
-  create() {
+  created() {
     this.setReturnPath();
   },
   methods: {
     redirect () {
       const returnPath = decodeURIComponent(localStorage.getItem('returnPath'))
+      console.log(returnPath)
       if (returnPath) {
         this.$router.push({
           path: returnPath
@@ -73,6 +74,18 @@ export default {
         this.$router.push({
           path: '/'
         })
+      }
+    },
+    setReturnPath () {
+      const search = window.location.href
+      const tokens = search.replace(/^\?/, '').split('&')
+      const pair = tokens[0].split('=')
+      const returnPath = pair[1]
+      console.log(returnPath)
+      if (!returnPath || returnPath.indexOf('undefined') !== -1) {
+        localStorage.setItem('returnPath', '/')
+      } else {
+        localStorage.setItem('returnPath', returnPath)
       }
     }
   }

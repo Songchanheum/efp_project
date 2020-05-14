@@ -15,6 +15,7 @@
             :rules="[() => !!id || 'This field is required']"
             :error-messages="errorMessages"
             label="ID"
+            color="purple darken-2"
             placeholder="ID"
             required
           ></v-text-field>
@@ -29,6 +30,9 @@
             :type="show ? 'text' : 'password'"
             label="Password"
             placeholder="Password"
+            counter
+            color="purple darken-2"
+            maxlength="20"
             required
             loading
             @click:append="show = !show"
@@ -49,6 +53,7 @@
             :error-messages="errorMessages"
             label="이름"
             placeholder="홍길동"
+            color="purple darken-2"
             required
           ></v-text-field>
           <v-text-field
@@ -57,6 +62,7 @@
             :rules="[() => !!phone || 'This field is required']"
             :error-messages="errorMessages"
             label="휴대폰 번호"
+            color="purple darken-2"
             placeholder="000-0000-0000"
             required
           ></v-text-field>
@@ -65,6 +71,7 @@
             v-model="country"
             :rules="[() => !!country || 'This field is required']"
             :items="countries"
+            color="purple darken-2"
             label="국가"
             placeholder="Select..."
             required
@@ -74,6 +81,7 @@
             v-model="city"
             :rules="[() => !!city || 'This field is required', addressCheck]"
             label="시"
+            color="purple darken-2"
             placeholder="서울시"
             required
           ></v-text-field>
@@ -83,6 +91,7 @@
             :rules="[() => !!state || 'This field is required']"
             label="구/군"
             required
+            color="purple darken-2"
             placeholder="금천구"
           ></v-text-field>
           <v-text-field
@@ -95,6 +104,7 @@
             ]"
             label="나머지 주소"
             placeholder="가산디지털1로 119"
+            color="purple darken-2"
             counter="25"
             required
           ></v-text-field>
@@ -106,33 +116,34 @@
             :rules="[() => !!zip || 'This field is required']"
             label="우편 번호"
             required
+            color="purple darken-2"
             placeholder="79938"
           ></v-text-field>
 
         </v-card-text>
         <v-divider class="mt-12"></v-divider>
         <v-card-actions>
-          <v-btn text>Cancel</v-btn>
-          <v-spacer></v-spacer>
-          <v-slide-x-reverse-transition>
-            <v-tooltip
-              v-if="formHasErrors"
-              left
-            >
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  icon
-                  class="my-0"
-                  @click="resetForm"
-                  v-on="on"
-                >
-                  <v-icon>mdi-refresh</v-icon>
-                </v-btn>
-              </template>
-              <span>Refresh form</span>
-            </v-tooltip>
-          </v-slide-x-reverse-transition>
-          <v-btn color="primary" text @click="submit">Submit</v-btn>
+        <v-spacer></v-spacer>
+        <v-slide-x-reverse-transition>
+          <v-tooltip
+            v-if="formHasErrors"
+            left
+          >
+            <template v-slot:activator="{ on }">
+              <v-btn
+                icon
+                class="my-0"
+                @click="resetForm"
+                v-on="on"
+              >
+                <v-icon>mdi-refresh</v-icon>
+              </v-btn>
+            </template>
+            <span>Refresh form</span>
+          </v-tooltip>
+        </v-slide-x-reverse-transition>
+        <v-btn dark @click="cancel">Cancel</v-btn>
+        <v-btn color="purple darken-2" dark @click="submit">Submit</v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
@@ -145,6 +156,7 @@
       errorMessages: '',
       name: null,
       address: null,
+      phone: null,
       city: null,
       state: null,
       zip: null,
@@ -165,6 +177,7 @@
           city: this.city,
           state: this.state,
           zip: this.zip,
+          phone: this.phone,
           country: this.country,
         }
       },
@@ -206,6 +219,9 @@
           this.$refs[f].validate(true)
         })
       },
+      cancel (){
+        window.history.back();
+      }
     },
   }
 </script>

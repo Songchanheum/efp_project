@@ -5,6 +5,7 @@
       app
       dark
       shrink-on-scroll
+      dense
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer; mini = false" v-show="!drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>{{siteTitle}} {{$t('message')}}</v-toolbar-title>

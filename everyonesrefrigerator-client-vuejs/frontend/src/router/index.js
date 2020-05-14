@@ -13,7 +13,7 @@ const requireAuth = (path) => async (to, from, next) => {
   if (require) {
     return next()
   }
-  next('/sign?returnPath=/' + path)
+  next('/sign?returnPath=' + path)
 }
 
 const About = () => {
@@ -55,7 +55,7 @@ const Singin = () => {
       {
         path: 'login',
         component: ChatLogin,
-        beforeEnter: requireAuth('chat/login')
+        beforeEnter: requireAuth('chat')
       },
     ]
   },
