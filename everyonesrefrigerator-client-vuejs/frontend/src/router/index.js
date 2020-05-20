@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import CreatUser from '../views/auth/CreateUser.vue'
 import ChatLogin from '../views/chat/ChatLogin.vue'
 import ChatRoom from '../views/chat/ChatRoom.vue'
+import User from '../views/auth/User.vue'
 import store from '../store/index'
 
 Vue.use(VueRouter)
@@ -64,6 +65,12 @@ const Singin = () => {
     name: 'ChatRoom',
     component: ChatRoom,
     beforeEnter: requireAuth('chat/login')
+  },
+  {
+    path: '/user',
+    name: 'User',
+    component: User,
+    beforeEnter: requireAuth('user')
   }
 
 ]

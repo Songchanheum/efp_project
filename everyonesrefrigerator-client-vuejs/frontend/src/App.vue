@@ -1,6 +1,6 @@
 <template>
   <v-app class="overflow-hidden">
-    <v-system-bar color="primary" lights-out></v-system-bar>
+    <v-system-bar color="purple darken-2" lights-out></v-system-bar>
     <v-app-bar
       app
       dark
@@ -63,7 +63,7 @@
       > LOGIN
       </v-btn>
       <v-btn hide-details
-      color="primary"
+      color="purple darken-2"
         class="mt-3 mx-3"
         @click="$router.push('/create')"
       > SIGNUP
@@ -100,6 +100,7 @@
           :prepend-icon="item.icon"
           :key="i"
           no-action
+          active-class="purple--text purple darken-2 text--accent-4"
         >
           <v-list-item slot="activator">
             <!-- <v-list-item-title>{{item.title}}</v-list-item-title> -->
@@ -111,6 +112,7 @@
             v-for="subItem in item.subItems"
             :key="subItem.title"
             :to="subItem.to"
+            active-class="white--text"
           >
             <v-list-item-content>
               <v-list-item-title>{{ subItem.title }}</v-list-item-title>

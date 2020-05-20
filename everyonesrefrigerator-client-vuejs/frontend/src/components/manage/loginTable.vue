@@ -20,6 +20,7 @@
             name="ID"
             prepend-icon="fas fa-user"
             type="text"
+            @keyup.enter="login"
           />
 
           <v-text-field
@@ -29,6 +30,7 @@
             name="password"
             prepend-icon="fas fa-lock"
             type="password"
+            @keyup.enter="login"
           >
           </v-text-field>
         </v-form>
@@ -36,7 +38,7 @@
       <v-card-actions>
         <v-spacer />
         <v-btn color="black" dark
-          @click="redirect()"
+          @click="login"
         >LOGIN</v-btn>
         <v-btn dark color="purple darken-2"
           @click="$router.push('/create')"
@@ -63,6 +65,11 @@ export default {
     this.setReturnPath();
   },
   methods: {
+    login() {
+      localStorage.setItem('token','true')
+      this.$store.commit('getToken', '')
+      this.redirect()
+    },
     redirect () {
       const returnPath = decodeURIComponent(localStorage.getItem('returnPath'))
       console.log(returnPath)

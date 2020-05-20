@@ -18,10 +18,24 @@ export default new Vuex.Store({
       color: 'error'
     },
     user: {
-      name: '일반사용자',
-      id: '없음',
-      img: 'https://randomuser.me/api/portraits/men/85.jpg'
+      id:'chsong',
+      name:'user',
+      lv:'3',
+      age:'134',
+      inCnt:'55'
     },
+  },
+  getters: {
+    isAuthenticated (state){
+      if(state.token){
+        return true
+      }else {
+        return false
+      }
+    },
+    getUser (state){
+      return state.user
+    }
   },
   mutations: {
     getToken (state, user) {
