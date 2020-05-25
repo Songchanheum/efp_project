@@ -1,7 +1,7 @@
 <template>
   <v-card height="100%">
     <v-toolbar color="grey" flat dark>
-      <v-toolbar-title>최근 게시물</v-toolbar-title>
+      <v-toolbar-title>{{$t('dashboard_main')}}</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-spacer></v-spacer>
       <v-spacer></v-spacer>
@@ -10,9 +10,9 @@
          label="Search"
          placeholder="Name"
          outlined
-          dense
-          clearable
-            width="35"
+         dense
+         clearable
+         width="35"
 
        ></v-text-field>
       <v-btn icon>

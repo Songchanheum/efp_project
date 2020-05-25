@@ -8,7 +8,15 @@
       dense
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer; mini = false" v-show="!drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>{{$t('title')}}</v-toolbar-title>
+      <v-toolbar-title>
+        <v-btn
+          text
+          x-large
+          @click="$router.push('/')"
+        >
+        <h2>{{$t('title')}}</h2>
+      </v-btn>
+      </v-toolbar-title>
       <v-spacer></v-spacer>
 
       <v-btn icon>
@@ -170,7 +178,7 @@ export default {
         },
         {
           icon: 'fas fa-comment-alt',
-          title: this.$t('chat'),
+          title: this.$t('chatting'),
           subItems: [
             {
               icon: 'home',
@@ -302,10 +310,10 @@ export default {
     changeLocale () {
       if (this.$i18n.locale === 'en') this.$i18n.locale = 'ko'
       else this.$i18n.locale = 'en'
-      this.items[0].title = this.$t('dashboard')
-      this.items[0].subItems[0].title = this.$t('today')
-      this.items[1].title = this.$t('chatting')
-      this.items[1].subItems[0].title = this.$t('everyone')
+      // this.items[0].title = this.$t('dashboard')
+      // this.items[0].subItems[0].title = this.$t('today')
+      // this.items[1].title = this.$t('chatting')
+      // this.items[1].subItems[0].title = this.$t('everyone')
     }
   }
 }

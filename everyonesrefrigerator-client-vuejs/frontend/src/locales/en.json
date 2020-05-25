@@ -7,7 +7,9 @@
   "user_info": "User Info",
   "logout_b": "Logout",
   "dashboard": "Dashboard",
-  "today": "Today",
-  "chatting": "Chatting",
-  "everyone": "Everyone"
+  "today": " Today",
+  "chatting": "Chat",
+  "everyone": "Everyone",
+
+  "dashboard_main":"Current Product"
 }

@@ -9,5 +9,7 @@
   "dashboard": "현황",
   "today": "오늘",
   "chatting": "채팅",
-  "everyone": "아무나"
+  "everyone": "아무나",
+
+  "dashboard_main":"최근 등록 상품"
 }
