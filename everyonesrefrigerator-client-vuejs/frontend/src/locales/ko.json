@@ -1,5 +1,13 @@
 {
+  "title": "모두의 냉장고",
   "message": "안녕 i18n !!",
+  "login_m": "로그인 하세요",
+  "login_b": "로그인",
+  "signup_b": "회원가입",
+  "user_info": "사용자 정보",
+  "logout_b": "로그아웃",
   "dashboard": "현황",
-  "today": "오늘"
+  "today": "오늘",
+  "chatting": "채팅",
+  "everyone": "아무나"
 }

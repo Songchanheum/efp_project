@@ -8,7 +8,7 @@
       dense
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer; mini = false" v-show="!drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>{{siteTitle}} {{$t('message')}}</v-toolbar-title>
+      <v-toolbar-title>{{$t('title')}}</v-toolbar-title>
       <v-spacer></v-spacer>
 
       <v-btn icon>
@@ -30,18 +30,18 @@
             </v-list-item>
             <template v-if="!$store.state.token">
               <v-list-item  @click="$router.push('/sign')">
-                <v-list-item-title>로그인</v-list-item-title>
+                <v-list-item-title>{{$t('login_b')}}</v-list-item-title>
               </v-list-item>
               <v-list-item  @click="$router.push('/create')">
-                <v-list-item-title>회원가입</v-list-item-title>
+                <v-list-item-title>{{$t('signup_b')}}</v-list-item-title>
               </v-list-item>
             </template>
             <template v-else>
               <v-list-item  @click="$router.push('/user')">
-                <v-list-item-title>사용자 정보</v-list-item-title>
+                <v-list-item-title>{{$t('user_info')}}</v-list-item-title>
               </v-list-item>
               <v-list-item  @click="signOut">
-                <v-list-item-title>로그아웃</v-list-item-title>
+                <v-list-item-title>{{$t('logout_b')}}</v-list-item-title>
               </v-list-item>
             </template>
           </v-list>
@@ -56,17 +56,17 @@
       dark
     >
     <v-list class="mt-3" align="center" height="120" v-if="!$store.state.token">
-      <h1> 로그인 하세요 </h1>
+      <h1> {{$t('login_m')}} </h1>
       <v-btn hide-details
         class="mt-3 mx-3"
         @click="$router.push('/sign')"
-      > LOGIN
+      > {{$t('login_b')}}
       </v-btn>
       <v-btn hide-details
       color="purple darken-2"
         class="mt-3 mx-3"
         @click="$router.push('/create')"
-      > SIGNUP
+      > {{$t('signup_b')}}
       </v-btn>
     </v-list>
     <v-list class="pa-0" v-else>
@@ -127,7 +127,7 @@
     </v-content>
     <v-footer app>
       <v-spacer></v-spacer>
-      <span>{{siteCopyright}} &nbsp;</span>
+      <span>{{siteCopyright}} {{$t('message')}} &nbsp;</span>
     </v-footer>
     <v-snackbar
       v-model="$store.state.sb.act"
@@ -157,11 +157,11 @@ export default {
       items: [
         {
           icon: 'fas fa-columns',
-          title: 'Dashboard', // '현황',
+          title: this.$t('dashboard'), // '현황',
           act: true,
           subItems: [
             {
-              title: 'Today', // '오늘',
+              title: this.$t('today'), // '오늘',
               to: {
                 path: '/'
               }
@@ -170,11 +170,11 @@ export default {
         },
         {
           icon: 'fas fa-comment-alt',
-          title: 'Chat',
+          title: this.$t('chat'),
           subItems: [
             {
               icon: 'home',
-              title: '아무나',
+              title: this.$t('everyone'),
               to: {
                 path: '/chat/login'
               }
@@ -304,6 +304,8 @@ export default {
       else this.$i18n.locale = 'en'
       this.items[0].title = this.$t('dashboard')
       this.items[0].subItems[0].title = this.$t('today')
+      this.items[1].title = this.$t('chatting')
+      this.items[1].subItems[0].title = this.$t('everyone')
     }
   }
 }

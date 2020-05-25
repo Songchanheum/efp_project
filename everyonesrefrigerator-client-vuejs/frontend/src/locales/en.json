@@ -1,5 +1,13 @@
 {
+  "title": "Refrigerator for Everyone",
   "message": "hello i18n !!",
+  "login_m": "SIGN IN",
+  "login_b": "SIGN IN",
+  "signup_b": "SIGN UP",
+  "user_info": "User Info",
+  "logout_b": "Logout",
   "dashboard": "Dashboard",
-  "today": "Today"
+  "today": "Today",
+  "chatting": "Chatting",
+  "everyone": "Everyone"
 }
